@@ -1,0 +1,272 @@
+Credit: Walter Savitch – Java Text
+
+Exercises: 
+
+1. Create an application that has a text area with scroll bars. Enable horizontal scrolling as needed. Always provide vertical scroll bars. Create two buttons. If the first button is pressed, append a number to the text area. Start the number at 1, and increase it after the button is pressed. If the second button is pressed, append a new line to the text area. Put a nice border around the scroll pane.
+
+Solution:
+
+See the code in Exercise1.java, ScrollTextWindow.java.
+
+
+
+
+2. Create an application that models a simple sales terminal. You should be able to sell three kinds of items. Have one button for each item, and attach a picture of the item to the button. Each button should have three labels associated with it. These labels will display the price of the item, the number of that item sold in the current transaction, and a subtotal for that item. Each time a button is pressed, increase the count of that item in the current sale by one and update the subtotal. A separate tenth label should show the total cost of the current sale. An “EndSale” menu item ends the current sale and resets the totals to zero.
+
+Solution:
+
+See the code in TerminalWindow.java.  Associated images are in Phone.jpg, Printer.jpg, Laptop.jpg.
+
+
+
+
+3. Create an application that overrides the action of the methods windowActivated and windowDeactivated. When the window is activated, change the background color to white. When it is deactivated, change the background to gray. Use at least four components in the GUI.
+
+Solution:
+
+See the code in Exercise3.java, ActivatedWindow.java.
+
+
+
+
+4. Create an application that overrides the action of the method windowIconified. Every time the window is iconified, add one to a counter and display the counter in a label.
+
+Solution:
+
+See the code in Exercise4.java, IconifierWindow.java.
+
+
+
+
+
+5. Create an application that uses a card layout with three cards. The first card—a login card—should have two text fields, one for a user identification and the other for a password. There are two users—Bob and Fred—whose passwords are “mubby” and “goolag”, respectively. If Bob logs in, switch to a card—the bob card— that has a text field, a text area, and two buttons. If the first button is pressed, get the text from the text field and append it to the text area. If the second button is pressed, return to the login card. If Fred logs in, switch to a card—the fred card—that has three buttons. If the first button is pressed, change the background
+color to green. If the second button is pressed, change the background color to red. If the third button is pressed, return to the login card.
+
+Solution:
+
+See the code in Exercise5.java, SimpleCardWindow.java.
+
+
+
+
+6. Create a GUI that has two buttons on it. When clicked, each button creates a new window. The first button creates a window that has a single button on it. Pressing that button will change the window’s background color back and forth between red and green. The second button creates a window that has two buttons. Pressing the first button of these two buttons will change the window’s background color to black. Pressing the second button will change the background color to white. Make sure that your windows will just dispose of themselves when they are closed.
+
+Solution:
+
+See the code in Exercise6.java, MultiWindow.java.
+
+
+
+
+7. Create an application that has a text area, a text field and a button. In the text field you can enter a name. When the button is pressed get the name from the text field and create a new window. Use the name as the title of the new window. Also program the window so that when it is closed, it will append its name to the text area of your application and then dispose of itself.
+
+Solution:
+
+See the code in Exercise7.java, RecorderWindow.java.
+
+
+
+
+
+8. Create a GUI that has three buttons, each of which contains the name of a song. When a button is pressed, create a new window. Title the window with the name of the song. In a text area in the window, display the lyrics to the song. When the window is closed, it should dispose of itself, but don't quit the application.
+
+Solution:
+
+See the code in Exercise7.java, RecorderWindow.java.
+
+
+
+
+9. Create an application that draws a simple stick figure person that looks something like the following figure:
+You should have three buttons: Dress, Hair, and Shoes. Associated with the
+Dress button is a window that has four buttons, one for each of the colors red, green, blue, and orange. Pressing one of these buttons will change the color of the dress. Similarly, the Hair button is associated with a window that has three buttons, one for each of the colors black, gray, and pink. And the Shoes button is associated with a window that has three buttons, one for each of the colors red, yellow, and blue. When the application starts, create the windows for the Dress, Hair, and Shoes buttons, and make these windows invisible. Pressing a button will make the correct window visible. If the window is closed, just make it invisible.
+
+Solution:
+
+See the code in StickFigureWindow.java.
+
+
+
+
+10. Create an application that will compute the average of a list of numbers. Begin with two windows. The first window, titled “Display,” should have a label and a vertically scrollable text area. The second window, titled “Data entry,” should have a text field and an Enter button. When a user enters an integer value into the text field and clicks the Enter button, copy the value in the text field to the text area in the display window. Also, update the label in this window to indicate the number of values, their sum, and average. If either window is closed, quit the application.
+
+Solution:
+
+See the code in ComputeAverage.java.
+
+
+
+
+11. Create an application that will display a string of text using different fonts. Your application should have three menus. The font-name menu will have five menu items: Serif, SansSerif, Monospaced, Dialog, and DialogInput. The style menu will have three menu items: Plain, Bold, and Italic. The size menu will have four menu items: 10, 12, 18, and 24. When a menu item is chosen, change the font and then repaint the window. Hint: Use the method drawString to display the sample string. Use the expression new Font(type, style, size) to create the font you will display. Refer to the API documentation for the class Font for additional details.
+
+Solution:
+
+See the code in Exercise11.java, FontWindow.java.
+
+
+
+
+12. Modify the application in the previous exercise so that it uses a single nested menu. The single menu, titled “font,” should have three submenus, one each for the font-name, style, and size.
+
+Solution:
+
+See the code in Exercise12.java, NestedFontWindow.java.
+
+
+
+
+13. Create an application that uses nested menus to choose an ice cream sundae. The “Choices” menu will have three submenus. The “Flavor” submenu will have three menu items: Chocolate, Strawberry, and Vanilla. The “Toppings” menu will have four menu items: Chocolate chips, Sprinkles, Nuts, and Peppermint. The “Syrup” menu will have three menu items: Chocolate, Butterscotch, and Berry. As the choices are made, update a label in the center of the application. The “Actions” menu will have two items: Clear will clear the current order, and Quit will exit the application.
+
+Solution:
+
+See the code in SundaeCreator.java.
+
+
+
+
+14. Create an application that will draw a figure. Your application will have a Shape menu with three choices: Circle, Square, and Triangle. A Color menu should have four choices: Black, Cyan, Magenta, and Yellow. When one of the menu items is chosen, redraw the figure. In the east area of the application, place three text fields and a button. The text fields will allow you to enter integer values for the x and y coordinates of the center of the figure and the size of the figure. When the Change button is pressed, get the values from the text fields and redraw the figure.
+
+Solution:
+
+See the code in Exercise14.java, ShapeWindow.java.
+
+
+
+
+
+15. Write an application that creates a list of names. You will need a text area in the center of the screen capable of holding ten lines that cannot be edited. Place a text field and a menu. After a user enters a name into the text field and selects the “Add Name” menu option, take the name from the text field and add it to the text area. Then clear the text field.
+
+Solution:
+
+See the code in Exercise15.java, NamesMenuWindow.java.
+
+
+
+
+Projects:
+
+1. Write a GUI that will let the user sample icons. It should have a menu named Icons that offers three choices: Smiley Face, Duke Waving, and Duke Standing. When the user chooses a menu item, the corresponding icon is displayed (and no other icons are displayed). When the GUI is first displayed, no icons are visible. The picture files for these icons are available in the source code for this chapter on the Web.
+
+Notes:
+
+The layout of the window, structure of the code, and technique for updating the display based on the user’s selection is similar to that for MemoGUI, Listing 15.1.  As with any of the applications that use icons, you will need to make sure that the image files are in an appropriate folder.   This is not always the same as where the source files are located.
+
+
+Solution:
+
+See the code in IconMenu.java.
+
+
+
+
+2. Enhance the memo saver GUI(MemoGUI) in Listing 15.1 in all of the following ways:
+• Add another menu called Scroll Bars that offers the user three choices: Never, Always, and As Needed. When the user makes a choice, the scroll bars are displayed according to the choice.
+• When the user clicks the close-window button, another window pops up and asks the user whether to end the program, as was done in Listing 15.10(CloseWindowDemo).
+
+Notes:
+
+This program is best done by adding one feature at a time and judiciously copying code from examples on the CD that comes with the text. 
+To obtain the exit pop-up window, start with the code from CloseWindowDemo, Listing 15.10 and add to it.  For example, add a call to ConfirmWindow() in the actionPerformed method if the ActionEvent is “Exit”.    The setDefaultCloseOperation code is necessary to get the pop-up window when the exit button (the “X” in the upper left corner of the window) is clicked, and the call in actionPerformed is necessary to get the window when “Close” in the “Memos” menu is selected.
+Next, add the nested menus and make sure it works before actually coding the events for the options.
+Next, add functionality to the “View” menu options.
+Note that the following line is necessary to make the change visible immediately after selecting any of these options:
+SwingUtilities.updateComponentTreeUI(this);
+
+
+Solution:
+
+See the code in MemoGUIEnhanced.java.
+
+
+
+
+
+4. Write a GUI that will let the user sample borders. Include a menu named Borders that offers three options—beveled border, etched border, and line border—as submenus with the following options:
+• Beveled-border submenu options: raised or lowered.
+• Etched-border submenu options: raised or lowered.
+• Line-border submenu options: small, medium, or large. 
+Each of these options should be a submenu with three color options: black, red, and blue. Put the borders around a label containing text that describes the border, such as Raised Border, Lowered Etched Border, and so forth. Fix the highlight and shadow colors for the etched-border options to whatever colors you like, and make the small line border 5 pixels wide, the medium one 10 pixels wide, and the large one 20 pixels wide.
+
+Notes:
+
+This Programming Project is fairly easy, especially if done a step at a time.  First create the menu hierarchy, then add the lines in the actionPerformed method to set the border style and change the label’s text, depending on the style selected.  Note that setActionCommand is used to differentiate selections with the same text (e.g. “Raised” could be either Beveled or Etched).
+
+
+Solution:
+
+See the code in BordersMenu.java.
+
+
+
+
+
+5. Repeat Programming Project 3 using either the BoxLayout manager or the Box container class to create the GUI. Place two buttons, one to write a file and the other to read a file, vertically on the left.
+
+Notes:
+
+While this project is similar to Project 3, it has a significantly revised interface.  The interface was designed to display one set of buttons, labels, and text boxes to enter the file name and a different set of buttons, labels, and text boxes for data viewing or entry.
+
+
+Solution:
+
+See the code in PetFilerBoxLayout.java.  Uses PetRecord.java.
+
+
+
+
+6. Write a “skeleton” GUI program that implements the WindowListener interface. Write code for each WindowListener method that simply displays a message— in a text field—identifying which event occurred. Note that your program will not end when the close-window button is clicked, but will instead simply send a message to the text field saying that the windowClosing method has been invoked. Include an Exit button that the user can click to end the program.
+
+Notes:
+
+A separate window is used to show the messages each time one of the main window events are clicked.  setDefaultCloseOperation is used to reprogram the close-window event so that it prints a message instead of closing.
+
+
+Solution:
+
+See the code in WindowListenerSkeleton.java.
+
+
+
+
+7. Create an application that uses a card layout manager to enable two people to play a guessing game. The initial card will have two text fields in which the players will enter their names. The StartGame button will bring up a new card, the numberentry card, that has a text field in which a player can enter a secret integer value.
+
+The PlayGame button will bring up a second card that has three buttons and
+a text field. The player will enter a guess value in the text field and then press one of the three buttons. The greater button will display true or false depending on whether the player’s guess value is greater than the secret value. The less button will display true or false depending on whether the players guess value is less than the secret value. The equal button will display true or false depending on whether the players guess value is equal to the secret value. Once the player correctly guesses the integer value, the number of guesses made is added to that player’s total score and displayed in a text field. Pressing the NewNumber button will bring back the number-entry card. Players should alternate between picking the secret number and guessing the value of the secret number. You should have labels that will display each player’s current score.
+
+Notes:
+
+This application demonstrates the use of a card layout.  Note that in this game, lower scores are better. (This is why the score is shown as blots.)  To simplify the actionPerformed method, we break each button’s action out into a method.  The setup code is long, but uncomplicated.
+
+When constructing this application, it would be a good idea to do it iteratively.
+Get the card logic to work correctly first (switching between cards)
+Complete the start card.  (Name entry works)
+Complete the secret number entry card.  (A player can enter their secret number)
+Do the guess card.  (Add each button and make it work.)
+
+
+
+Solution:
+
+See the code in in GuessingGame.java.
+
+
+8. Create an application that will play a simple one-player card game. In this game, you get four random cards that have values in the range from 1 to 10 and are face down so their values hidden. As the game progresses, you can press a NewCard button and get a new card with its value shown. Use an icon and a label to display the card. Getting a new card will cost you one point from your total score. You can then choose to replace one of your four cards with the new card. To do so, implement the four cards as buttons with icons and use a button press to indicate which card you want to replace. When the card is replaced, use a text label to inform the player of the value of the card that was replaced. Make sure that only one card can be replaced. At any point, you can press a Stop button to stop that hand.
+All four of your cards should then be displayed face up. Total the values of the cards and add that to your total score for all hands. You will need two labels to display the score for the game. The first label will give the total score the player has earned. The second label will give a total that is par for the game. To determine the par value for a given hand, add up the values
+of the cards in the hand before any replacement is done. Once the hand is over, add the par value of the hand to a total and display that. You will need another button, StartNewHand, that will generate four new random cards for your hand.
+
+Notes:
+
+This application can really look nice with appropriate use of icons.  The solution has an icon for the back of the card and one for each of the faces.  It then uses the setIcon method for a JButton to change the image as needed.  The solution uses getSource to determine which button was pressed, but it could be easily modified to check for an action string instead.  The most complicated part of the application is deciding what to do for each click as there are a number of possible states that we can be in and we want to keep track of the score as the player deals out cards.
+
+One interesting thing to do is to analyze this game.  Is it advantageous to deal a card?  Once the card is dealt, should we replace one of our known or unknown cards with it? This game is simple enough that it can be analyzed, but complicated enough to make it interesting.
+
+
+Solution:
+
+See the code in CardGame.java.  There are a number of jpg files used for the card images.
+
+
+
+
+
+
