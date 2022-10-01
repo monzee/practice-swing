@@ -8,9 +8,7 @@ import java.awt.event.ContainerEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.function.Consumer;
-import java.util.function.BiConsumer;
 import javax.swing.AbstractButton;
-import javax.swing.GroupLayout;
 
 
 public interface Convenience {

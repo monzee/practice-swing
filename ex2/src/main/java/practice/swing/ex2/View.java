@@ -1,6 +1,5 @@
 package practice.swing.ex2;
 
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -24,7 +23,6 @@ import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.MatteBorder;
 
 import practice.swing.utilities.Convenience;
 import practice.swing.utilities.GroupGrid;
@@ -41,7 +39,7 @@ public abstract class View implements ViewModel.EventListener, Convenience {
 
 		Row(String name, URL image, Millis price) {
 			doBuy = new JButton(
-				"<html><center><h2>" + name + "</h2>" + price + "</center></html>",
+				"<html><center><h3>" + name + "</h3>" + price + "</center></html>",
 				rescaled(image)
 			);
 			doBuy.setIconTextGap(20);
@@ -80,13 +78,13 @@ public abstract class View implements ViewModel.EventListener, Convenience {
 	/**
 	 * Initialize the environment before any Swing component is created.
 	 *
-	 * This hook is called in the UI thread. Override this method to setup the
+	 * <p> This hook is called in the UI thread. Override this method to setup the
 	 * look-and-feel. The label {@link #totalAmount} must also be set here,
-	 * otherwise the {@link #onReady(Set<Product>, Intent)} method will throw an
+	 * otherwise the {@link #onReady} method will throw an
 	 * NPE later. Call {@code super.setup()} at the end to setup the default
 	 * label component.
 	 *
-	 * You can also initialize here any other components you might want to add
+	 * <p> You can also initialize here any other components you might want to add
 	 * to the frame and use later in a view model hook.
 	 */
 	protected void setup() {
@@ -107,11 +105,11 @@ public abstract class View implements ViewModel.EventListener, Convenience {
 		setup();
 		var frame = new JFrame();
 		var menuBar = new JMenuBar();
-		var menu = menuBar.add(new JMenu("File"));
+		var menu = menuBar.add(new JMenu("Order"));
 		var exit = new JMenuItem("Exit", KeyEvent.VK_X);
-		onClick(menu.add(new JMenuItem("Settle order", KeyEvent.VK_S)), will::settle);
+		onClick(menu.add(new JMenuItem("Settle", KeyEvent.VK_S)), will::settle);
 		onClick(menu.add(exit), frame::dispose);
-		menu.setMnemonic(KeyEvent.VK_F);
+		menu.setMnemonic(KeyEvent.VK_R);
 		exit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, InputEvent.CTRL_DOWN_MASK));
 		frame.setJMenuBar(menuBar);
 		var grid = new GroupGrid(4).withColumnAt(3, GroupLayout.Alignment.TRAILING);
@@ -141,4 +139,3 @@ public abstract class View implements ViewModel.EventListener, Convenience {
 		totalAmount.setText(total.toString());
 	}
 }
-

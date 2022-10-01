@@ -1,13 +1,5 @@
 package practice.swing.ex2;
 
-import java.net.URL; 
-import java.util.List;
-import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-import javax.swing.UIManager;
-
-
 /*
  * Specs
  * =====
@@ -34,16 +26,37 @@ import javax.swing.UIManager;
  * pattern. Perhaps I should have chosen a different name to avoid overloading
  * the term. I chose the name because this class literally models what the view
  * does. It holds the state being reflected by the view and decides how and
- * when to change it. In pattern-speak, this is halfway between MVI and
+ * when to change it. In pattern-speak, this is halfway between MVVM and
  * MVP-Passive View. If the model events were more declarative or descriptive
  * rather than imperative (the model calling multiple listener methods per event
  * is the indicator of imperativeness), then this would be the procedural
  * version of the MVI pattern. If I had used streams of state and intent sealed
- * interfaces instead of callbacks (event listeners), this would be MVI. MVVM is
- * garbage and is a thing I actively avoid. I want to write a blog post relating
- * all these patterns but I can't seem to organize my thoughts enough to write a
- * coherent article.
+ * interfaces instead of callbacks (event listeners), this would be MVI.
+ *
+ * The `View`
+ * ==========
+ * Straightforward enough. The object in charge of laying out components in a
+ * window and keeps references to dynamic components so they could be updated
+ * as the model changes. The bit I'm not sure I like yet is the fact that the
+ * actions object is only accessible in a method. I usually have them as part
+ * of the constructor. I think that should still be the case because later on
+ * I might need an action in a model listener method.
+ * 
+ * Also it's a bit weird for me to make the view an abstract class. I usually
+ * define an interface and make it a constructor dependency, being composition-
+ * over-inheritance person. Here it looks awkward to use composition because
+ * there's a view behavior I want to invoke in the setup.  I think a
+ * `super.setup()` call makes sense here.
  */
+
+import java.net.URL; 
+import java.util.List;
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
+import javax.swing.UIManager;
+
+
 public interface Exercise2 {
 	static void main(String[] args) {
 		var products = List.of(

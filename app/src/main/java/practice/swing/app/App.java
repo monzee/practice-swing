@@ -3,8 +3,8 @@
  */
 package practice.swing.app;
 
-import practice.swing.ex1.Exercise1;
 import practice.swing.ex2.Exercise2;
+
 
 public class App {
 	public static void main(String[] args) {
