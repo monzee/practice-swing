@@ -5,9 +5,3 @@ plugins {
 dependencies {
     api(project(":utilities"))
 }
-
-tasks {
-    withType<JavaCompile> {
-        options.compilerArgs.add("-Xlint:deprecation")
-    }
-}
