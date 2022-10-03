@@ -11,11 +11,3 @@ repositories {
     // Use the plugin portal to apply community plugins in convention plugins.
     gradlePluginPortal()
 }
-
-allprojects {
-    tasks {
-        withType<JavaCompile> {
-            options.compilerArgs.add("-Xlint:deprecation")
-        }
-    }
-}

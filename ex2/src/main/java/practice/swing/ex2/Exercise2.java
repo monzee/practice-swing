@@ -56,6 +56,8 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.UIManager;
 
+import com.formdev.flatlaf.FlatLightLaf;
+
 
 public interface Exercise2 {
 	static void main(String[] args) {
@@ -72,8 +74,8 @@ public interface Exercise2 {
 			@Override
 			protected void setup() {
 				try {
-					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-					//JFrame.setDefaultLookAndFeelDecorated(true);
+					UIManager.setLookAndFeel(new FlatLightLaf());
+					JFrame.setDefaultLookAndFeelDecorated(true);
 				}
 				catch (Exception ex) {
 					ex.printStackTrace();

@@ -4,5 +4,4 @@ plugins {
 
 dependencies {
     api(project(":utilities"))
-    implementation("org.pushing-pixels:radiance-theming:6.0.1")
 }

@@ -22,7 +22,12 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter:5.7.2")
 }
 
-tasks.test {
-    // Use JUnit Platform for unit tests.
-    useJUnitPlatform()
+tasks {
+    test {
+        useJUnitPlatform()
+    }
+
+    withType<JavaCompile> {
+        options.compilerArgs.add("-Xlint:deprecation")
+    }
 }

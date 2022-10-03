@@ -9,3 +9,7 @@ plugins {
     // Apply the java-library plugin for API and implementation separation.
     `java-library`
 }
+
+dependencies {
+    implementation("com.formdev:flatlaf:2.5")
+}
