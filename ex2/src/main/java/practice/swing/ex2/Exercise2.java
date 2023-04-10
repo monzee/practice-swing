@@ -68,9 +68,9 @@ public interface Exercise2 {
 			new Product("Typewriter", locate("/Laptop.png"), Millis.of(9.99))
 		);
 		var model = new ViewModel(products);
-		model.listen(new View() {
+		var setup = new View.Setup() {
 			@Override
-			protected void setup() {
+			public void initialize() {
 				try {
 					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 					//JFrame.setDefaultLookAndFeelDecorated(true);
@@ -79,11 +79,10 @@ public interface Exercise2 {
 					ex.printStackTrace();
 					System.err.println("Failed to load look and feel; using default.");
 				}
-				super.setup();
 			}
 
 			@Override
-			protected void show(JFrame frame) {
+			public void show(JFrame frame) {
 				frame.getJMenuBar()
 					.add(new JMenu("Help"))
 					.add(new JMenuItem("About"));
@@ -94,8 +93,8 @@ public interface Exercise2 {
 				frame.setLocationRelativeTo(null);
 				frame.setVisible(true);
 			}
-		});
-		model.refresh();
+		};
+		model.attach(setup.view());
 	}
 
 	private static URL locate(String path) {

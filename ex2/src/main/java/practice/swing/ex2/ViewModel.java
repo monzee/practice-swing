@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Set;
 
 import practice.swing.utilities.Signal;
+import practice.swing.utilities.Threading;
 
 
 /**
@@ -65,16 +66,17 @@ public class ViewModel {
 		void settle();
 	}
 
-	private enum Tag { READY, UPDATED, ALL_UPDATED }
+	private enum Tag { NOTHING, UPDATED, ALL_UPDATED }
 	private final Map<Product, Integer> orders = new LinkedHashMap<>();
-	private final Signal events = new Signal();
-	private Tag event = Tag.READY;
+	private final Signal events = new Signal(Threading.NOW);
+	private Tag event = Tag.NOTHING;
 	private Product lastOrder;
 	private Millis total = Millis.ZERO;
 
 	final Intent actions = new Intent() {
 		@Override
 		public void order(Product key) {
+			// TODO: validate the key
 			orders.put(key, orders.get(key) + 1);
 			total = total.plus(key.unitPrice());
 			lastOrder = key;
@@ -100,26 +102,21 @@ public class ViewModel {
 	}
 
 	/**
+	 * Initializes and attaches a listener for update events.
+	 * 
+	 * <p> The listener is initialized by calling its
+	 * {@link EventListener#onReady(Set, Intent)} method.
+	 * 
 	 * @param listener The listener to invoke when an event occurs.
 	 */
-	public void listen(EventListener listener) {
-		events.receive(() -> inspect(listener));
+	public void attach(EventListener listener) {
+		events.receive(() -> dispatch(listener));
+		listener.onReady(orders.keySet(), actions);
 	}
 
-	/**
-	 * Re-emit the last event to listeners.
-	 * 
-	 * <p> Call this after instantiating and attaching a listener to actually
-	 * render something.
-	 */
-	public void refresh() {
-		events.send();
-	}
-
-	void inspect(EventListener listener) {
+	void dispatch(EventListener listener) {
 		switch (event) {
-			case READY:
-				listener.onReady(orders.keySet(), actions);
+			case NOTHING:
 				break;
 			case UPDATED:
 				listener.onUpdate(lastOrder, orders.get(lastOrder));
