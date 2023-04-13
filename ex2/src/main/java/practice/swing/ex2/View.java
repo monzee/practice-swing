@@ -29,15 +29,90 @@ import practice.swing.utilities.GroupGrid;
 import practice.swing.utilities.Pulse;
 
 
-public abstract class View implements ViewModel.EventListener, Convenience {
+public class View implements ViewModel.EventListener, Convenience {
 
-	private static class Row implements Convenience {
+	/**
+	 * Client hooks before creating and showing a JFrame.
+	 */
+	public interface Setup {
+		/**
+		 * Initialize the environment before any Swing component is created.
+		 * 
+		 * <p> Primarily meant for setting up the look-and-feel of the app.
+		 */
+		void initialize();
+
+		/**
+		 * Perform final setup on the window and show it.
+		 * 
+		 * <p> {@link JFrame#setVisible(boolean)} must be called here.
+		 *
+		 * @param frame The window with all the components added in.
+		 */
+		void show(JFrame frame);
+
+		default View view() {
+			return new View(this);
+		}
+	}
+
+	private final Setup setup;
+	private final Map<Product, RowView> rows = new LinkedHashMap<>();
+	private JLabel totalAmount;
+
+	public View(Setup setup) {
+		this.setup = setup;
+	}
+
+	@Override
+	public final void onReady(Set<Product> products, ViewModel.Intent will) {
+		setup.initialize();
+		totalAmount = new JLabel(Millis.ZERO.toString());
+		totalAmount.setBorder(new EmptyBorder(15, 5, 15, 0));
+		totalAmount.setFont(totalAmount.getFont().deriveFont(Font.BOLD));
+		var frame = new JFrame();
+		var menuBar = new JMenuBar();
+		var menu = menuBar.add(new JMenu("Order"));
+		var exit = new JMenuItem("Exit", KeyEvent.VK_X);
+		onClick(menu.add(new JMenuItem("Settle", KeyEvent.VK_S)), will::settle);
+		onClick(menu.add(exit), frame::dispose);
+		menu.setMnemonic(KeyEvent.VK_R);
+		exit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, InputEvent.CTRL_DOWN_MASK));
+		frame.setJMenuBar(menuBar);
+		var grid = new GroupGrid(4).withColumnAt(3, GroupLayout.Alignment.TRAILING);
+		for (var product : products) {
+			var row = new RowView(product.name(), product.image(), product.unitPrice());
+			rows.put(product, row);
+			row.attachTo(grid.createRow(GroupLayout.Alignment.CENTER));
+			row.clicks.receive(() -> will.order(product));
+		}
+		var lastRow = grid.createRow(GroupLayout.Alignment.BASELINE);
+		var empty = new Dimension(0, 0);
+		lastRow.add(Box.createRigidArea(empty));
+		lastRow.add(Box.createRigidArea(empty));
+		lastRow.add(new JLabel("Total"));
+		lastRow.add(totalAmount);
+		grid.attachTo(frame.getContentPane());
+		setup.show(frame);
+	}
+
+	@Override
+	public void onUpdate(Product key, int quantity) {
+		rows.get(key).update(quantity, key.unitPrice().times(quantity));
+	}
+
+	@Override
+	public void onUpdate(Millis total) {
+		totalAmount.setText(total.toString());
+	}
+
+	private static class RowView implements Convenience {
 		final JButton doBuy;
 		final JLabel theQuantity = new JLabel("0 pcs", SwingConstants.CENTER);
 		final JLabel theSubtotal = new JLabel(Millis.ZERO.toString(), SwingConstants.TRAILING);
 		final Pulse clicks;
 
-		Row(String name, URL image, Millis price) {
+		RowView(String name, URL image, Millis price) {
 			doBuy = new JButton(
 				"<html><center><h3>" + name + "</h3>" + price + "</center></html>",
 				rescaled(image)
@@ -70,72 +145,5 @@ public abstract class View implements ViewModel.EventListener, Convenience {
 			icon.setImage(image.getScaledInstance(100, -1, Image.SCALE_SMOOTH));
 			return icon;
 		}
-	}
-
-	private final Map<Product, Row> rows = new LinkedHashMap<>();
-	protected JLabel totalAmount;
-
-	/**
-	 * Initialize the environment before any Swing component is created.
-	 *
-	 * <p> This hook is called in the UI thread. Override this method to setup the
-	 * look-and-feel. The label {@link #totalAmount} must also be set here,
-	 * otherwise the {@link #onReady} method will throw an
-	 * NPE later. Call {@code super.setup()} at the end to setup the default
-	 * label component.
-	 *
-	 * <p> You can also initialize here any other components you might want to add
-	 * to the frame and use later in a view model hook.
-	 */
-	protected void setup() {
-		totalAmount = new JLabel(Millis.ZERO.toString());
-		totalAmount.setBorder(new EmptyBorder(15, 5, 15, 0));
-		totalAmount.setFont(totalAmount.getFont().deriveFont(Font.BOLD));
-	}
-
-	/**
-	 * Perform final setup on the window and show it.
-	 *
-	 * @param frame The window with all the components added in.
-	 */
-	abstract protected void show(JFrame frame);
-
-	@Override
-	public final void onReady(Set<Product> products, ViewModel.Intent will) {
-		setup();
-		var frame = new JFrame();
-		var menuBar = new JMenuBar();
-		var menu = menuBar.add(new JMenu("Order"));
-		var exit = new JMenuItem("Exit", KeyEvent.VK_X);
-		onClick(menu.add(new JMenuItem("Settle", KeyEvent.VK_S)), will::settle);
-		onClick(menu.add(exit), frame::dispose);
-		menu.setMnemonic(KeyEvent.VK_R);
-		exit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, InputEvent.CTRL_DOWN_MASK));
-		frame.setJMenuBar(menuBar);
-		var grid = new GroupGrid(4).withColumnAt(3, GroupLayout.Alignment.TRAILING);
-		for (var product : products) {
-			var row = new Row(product.name(), product.image(), product.unitPrice());
-			rows.put(product, row);
-			row.attachTo(grid.createRow(GroupLayout.Alignment.CENTER));
-			row.clicks.receive(() -> will.order(product));
-		}
-		var lastRow = grid.createRow(GroupLayout.Alignment.BASELINE);
-		var empty = new Dimension(0, 0);
-		lastRow.add(Box.createRigidArea(empty));
-		lastRow.add(Box.createRigidArea(empty));
-		lastRow.add(new JLabel("Total"));
-		lastRow.add(totalAmount);
-		grid.attachTo(frame.getContentPane());
-		show(frame);
-	}
-
-	@Override
-	public void onUpdate(Product key, int quantity) {
-		rows.get(key).update(quantity, key.unitPrice().times(quantity));
-	}
-
-	@Override
-	public void onUpdate(Millis total) {
-		totalAmount.setText(total.toString());
 	}
 }
