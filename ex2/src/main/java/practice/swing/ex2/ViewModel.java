@@ -111,7 +111,9 @@ public class ViewModel {
 	 */
 	public void attach(EventListener listener) {
 		events.receive(() -> dispatch(listener));
-		listener.onReady(orders.keySet(), actions);
+		Threading.LATER.execute(
+			() -> listener.onReady(orders.keySet(), actions)
+		);
 	}
 
 	void dispatch(EventListener listener) {
